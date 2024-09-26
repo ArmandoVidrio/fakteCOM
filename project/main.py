@@ -99,7 +99,7 @@ def can_crawl(url:str) -> bool:
 
 url = "https://www.netflix.com/"
 
-robot_manager = robot_manager(url)
+robot_manager = RobotManager(url)
 
 hot_routes = robot_manager.get_disallowed_routes()
 print(hot_routes)
