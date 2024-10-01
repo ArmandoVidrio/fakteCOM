@@ -59,18 +59,18 @@ class RobotManager:
         return self.disallowed_routes     
 
 class simpleCrawler:
-    def __init__(self, base_url, max_pages) -> None:
-        self.base_url = base_url
+    def __init__(self, base_urls, max_pages) -> None:
+        self.base_urls = base_urls
         self.visited_urls = set()
         self.max_pages = max_pages
 
-    def crawl(self, url):
+    def crawl(self, url, count):
         # We check if we already didn't visit the page
         if url in self.visited_urls:
             return
         
-        # We validate that we havent reache the max num of pages
-        if len(self.visited_urls) >= self.max_pages:
+        # We validate that we haven't reached the max num of pages
+        if count[0] >= self.max_pages:
             return
         
         # We try to visit the page
@@ -82,6 +82,7 @@ class simpleCrawler:
         # Mark the url as visited
         print(f"Visiting: {url}")
         self.visited_urls.add(url)
+        count[0] += 1
 
         # We search all the links in the webpage
         soup = BeautifulSoup(page_request.text, 'html.parser')
@@ -101,7 +102,7 @@ class simpleCrawler:
 
         for link in links_in_page:
             next_url = urljoin(url, link['href'])
-            self.crawl(next_url)
+            self.crawl(next_url, count)
 
     def _updateResultPath(self, title) -> str:
         # We eliminate the simbols and spaces from the title
@@ -113,10 +114,12 @@ class simpleCrawler:
         return results_path
 
     def start_crawl(self):
-        self.crawl(self.base_url)
+        for base_url in self.base_urls:
+            count = [0]  
+            self.crawl(base_url, count)
 
-url = "https://www.linkedin.com"
+urls = ["https://www.linkedin.com", "https://www.github.com"]
 
-crawler = simpleCrawler(url, 100)
+crawler = simpleCrawler(urls, 10)
 
 crawler.start_crawl()
