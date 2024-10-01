@@ -115,10 +115,8 @@ class simpleCrawler:
     def start_crawl(self):
         self.crawl(self.base_url)
 
-
-
 url = "https://www.linkedin.com"
 
-crawler = simpleCrawler(url, 20)
+crawler = simpleCrawler(url, 100)
 
 crawler.start_crawl()
