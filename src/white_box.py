@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+import re
 
 """
 White-box code examples.
 """
-import re
-
 
 def is_even(num):
     """
