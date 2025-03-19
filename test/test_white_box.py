@@ -25,7 +25,7 @@ class TestWhiteBox(unittest.TestCase):
 
     def test_divide_by_non_zero(self):
         """
-        Checks the divide function works as expected.
+        Checks the divide function works as expected. 
         """
         self.assertEqual(divide(10, 2), 5)
 
